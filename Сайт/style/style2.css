@@ -1,0 +1,109 @@
+* {
+font-family: "Arsenal";
+}
+
+:root {
+	--clr: #141414;
+	--size: calc(1vw + 1vh);
+	--transition: 1.25s cubic-bezier(.2, .5, 0, 1);
+	--transition-cursor: 2s cubic-bezier(.05, .5, 0, 1);
+}
+
+@font-face {
+	font-family: "Arsenal";
+	src: ./font/arsenal-regular.woff2;
+}
+
+body {
+	font-size: var(--size);
+cursor: none;
+margin: 0;
+}
+
+.magic-list {
+	width: 100%;
+	margin-top: calc(100vh / 25);
+	font-size: 6vw;
+}
+
+.magic-list_item {
+	cursor: none;
+display: block;
+height: 40vh;
+text-decoration: none;
+color: var(--clr);
+border-bottom: black solid calc(100vw / 1000);
+counter-increment: my-count;
+}
+
+.magic-list_item:first-child {
+	border-top: black solid calc(100vw / 400);
+}
+
+.magic-list_header {
+	transition: transform var(--transition);
+position: absolute;
+margin-top: calc(20% / 2);
+margin-left: 10vw;
+padding-left: 0vw;
+transition: all .5s;
+}
+
+.magic-list_item::before {
+	font-size: 2vw;
+
+content: '(0' counter(my-count) ')';
+position: absolute;
+height: calc(var(--size) * -2.25) 1s ease;
+margin-left: calc(var(--size) * 4);
+margin-top: calc(var(--size) * 7.5);
+letter-spacing: .5px;
+transition: transform var(--transition);
+transition-delay: .025s;
+will-change: transform;
+transition: all .5s;
+padding: calc(var(--size) * 3 calc(var(--size) * 7.5));
+}
+
+.magic-list_item:hover .magic-list_header,
+.magic-list_item:hover::before {
+margin-left: 3vw;
+transform: translate3d(calc(var(--size) * -5), 0, 0);
+}
+
+.cursor {
+width: calc(var(--size)*20);
+height: calc(var(--size)*15);
+position: fixed;
+z-index: -1;
+left: 0;
+top: 0;
+overflow: hidden;
+transform: translate3d(var(--move-x), var(--move-y), 0);
+transition: transform var(--cursor-transition);
+will-change: transform;
+}
+
+.magic-list_item:hover .cursor {
+	transform: translate(var(--move-x), var(--move-y));
+}
+
+.cursor_image {
+	display: none;
+transition: transform var(--transit-cursor);
+background-position: center;
+background-size: cover;
+--cursor-transition: translate3d(calc(var(--move-x) / -5), calc(var(--move-y) / -5), 0);
+transform: var(--cursor-transition) scale(3);
+transition: transform var(--cursor-transition);
+position: relative;
+width: 50vw;
+height: 35vh;
+top: calc(var(--height) * -.2);
+left: calc(var(--width) * -.2);
+}
+
+.magic-list_item:hover .cursor_image {
+	display: block;
+    transform: var(--cursor-transition) scale(1);
+}
